@@ -1,22 +1,14 @@
-name: Semgrep SAST Scan
+name: SAST Scan
 
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   semgrep:
     runs-on: ubuntu-latest
-
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Semgrep
-        run: pip install semgrep
-
-      - name: Run Semgrep
-        run: semgrep --config .semgrep.yml .
+      - uses: actions/checkout@v4
+      - uses: returntocorp/semgrep-action@v1
+        with:
+          config: .semgrep.yaml
