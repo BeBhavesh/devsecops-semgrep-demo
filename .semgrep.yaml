@@ -6,13 +6,14 @@ rules:
     severity: ERROR
 
   - id: sql-injection
-    pattern: `SELECT * FROM users WHERE id='${...}'`
+    pattern: pool.query($QUERY)
     message: Possible SQL Injection!
     languages: [javascript]
     severity: ERROR
 
   - id: weak-jwt
-    pattern: jwt.sign($PAYLOAD, $SECRET)
+    pattern-regex: "jwt\\.sign\\([^,]+,[^,]+\\)(?!.*,\\s*\\{\\s*expiresIn\\s*:)"
+
     message: JWT without expiry!
     languages: [javascript]
     severity: WARNING
