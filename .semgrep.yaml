@@ -1,0 +1,18 @@
+rules:
+  - id: hardcoded-secret
+    pattern: const $KEY = "..."
+    message: Hardcoded secret detected!
+    languages: [javascript]
+    severity: ERROR
+
+  - id: sql-injection
+    pattern: `SELECT * FROM users WHERE id='${...}'`
+    message: Possible SQL Injection!
+    languages: [javascript]
+    severity: ERROR
+
+  - id: weak-jwt
+    pattern: jwt.sign($PAYLOAD, $SECRET)
+    message: JWT without expiry!
+    languages: [javascript]
+    severity: WARNING
